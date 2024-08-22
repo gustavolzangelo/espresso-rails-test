@@ -10,3 +10,20 @@ pt-BR:
             cnpj:
               blank: "Você deve fornecer um CNPJ"
               invalid: "O CNPJ deve ter 14 dígitos"
+        user:
+          attributes:
+            user:
+                blank: "Você deve fornecer um nome"
+            email:
+              blank: "Você deve fornecer um email"
+              invalid: "O email fornecido é inválido"
+              taken: "O email fornecido já está em uso"
+            password:
+              blank: "Você deve fornecer uma senha"
+              confirmation: "As senhas não conferem"
+              too_short: "A senha deve ter no mínimo 6 caracteres"
+            password_confirmation:
+              blank: "Você deve fornecer a confirmação da senha"
+            role:
+              blank: "Você deve fornecer um cargo"
+              inclusion: "O cargo fornecido é inválido"
