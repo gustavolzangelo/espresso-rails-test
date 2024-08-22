@@ -32,7 +32,8 @@ module EspressoRailsTest
     # Don't generate system test files.
     config.generators.system_tests = nil
 
-    config.i18n.default_locale = :"pt-BR"
+    config.i18n.default_locale = :'pt-BR'
 
+    config.react.server_renderer_extensions = %w[jsx js tsx ts]
   end
 end
