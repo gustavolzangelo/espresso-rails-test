@@ -1,0 +1,12 @@
+pt-BR:
+  activerecord:
+    errors:
+      models:
+        company:
+          attributes:
+            name:
+              blank: "Você deve fornecer um nome"
+              length: "O nome deve ter entre 3 e 50 caracteres"
+            cnpj:
+              blank: "Você deve fornecer um CNPJ"
+              invalid: "O CNPJ deve ter 14 dígitos"
