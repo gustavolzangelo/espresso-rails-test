@@ -10,6 +10,8 @@ class User < ApplicationRecord
 
   validates :role, presence: true, inclusion: { in: roles.keys }
 
+  belongs_to :company
+
   def admin?
     roles == 'admin'
   end

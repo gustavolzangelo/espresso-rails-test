@@ -35,5 +35,7 @@ module EspressoRailsTest
     config.i18n.default_locale = :'pt-BR'
 
     config.react.server_renderer_extensions = %w[jsx js tsx ts]
+
+    config.autoload_paths += %W(#{config.root}/app/services)
   end
 end

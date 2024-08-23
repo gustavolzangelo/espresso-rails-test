@@ -21,7 +21,7 @@ const signupSchema = z.object({
 
 type TSignupFormInput = z.infer<typeof signupSchema>;
 
-const SignupForm: React.FC = () => {
+const SignupForm: React.FC = (props: { authenticityToken: string }) => {
   const {
     handleSubmit,
     control,
@@ -31,8 +31,37 @@ const SignupForm: React.FC = () => {
     mode: "onBlur",
   });
 
-  const onSubmit = (data: TSignupFormInput) => {
-    console.log(data);
+  const onSubmit = async (data: TSignupFormInput) => {
+    console.log("Form data:", data);
+    try {
+      const response = await fetch("/users", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-CSRF-Token": props.authenticityToken,
+        },
+        body: JSON.stringify({
+          user: {
+            name: data.name,
+            email: data.email,
+            password: data.password,
+            company_name: data.companyName,
+            cnpj: data.cnpj,
+          },
+        }),
+      });
+
+      if (response.ok) {
+        console.log("User created successfully");
+        const result = await response.json();
+        console.log(result);
+      } else {
+        const errorData = await response.json();
+        console.error("Errors:", errorData.errors);
+      }
+    } catch (error) {
+      console.error("An error occurred:", error);
+    }
   };
 
   return (
@@ -46,7 +75,9 @@ const SignupForm: React.FC = () => {
             Informe os seus dados pessoais
           </Typography>
           <form
-            onSubmit={handleSubmit(onSubmit)}
+            onSubmit={() => {
+              handleSubmit(onSubmit)();
+            }}
             style={{ display: "flex", flexDirection: "column", gap: "16px" }}
           >
             <Box>
@@ -126,6 +157,7 @@ const SignupForm: React.FC = () => {
                 )}
               />
             </Box>
+            {/*TODO validate CNPJ better*/}
             <Box>
               <Controller
                 name="cnpj"
@@ -153,6 +185,7 @@ const SignupForm: React.FC = () => {
               variant="contained"
               color="primary"
               style={{ maxWidth: "128px", height: "36px" }}
+              type="submit"
             >
               CRIAR CONTA
             </Button>
